@@ -4,7 +4,7 @@ compatibility_date = "2024-09-03"
 
 [vars]
 DATABASE_URL="prisma://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiOGU4ZWY0NDAtOWM2NC00NTg0LWJhM2UtNzJiYTU1ODUxMmQ3IiwidGVuYW50X2lkIjoiZjk1NzNiZDY4ZmQ4NzhhMzMyNWJkOTVkMjBmODI5ZTM5ODM0MDU1NmI1ZDg4ZDE1ZmQ3NDIzNzA4NzU2MGE3MyIsImludGVybmFsX3NlY3JldCI6ImZiMGVkYWYwLTBmMzQtNDJjNy04ZWRkLWVmMzhlNGFiY2ZlMSJ9.AMQFt28hNIYg1Ig6bKwo-0jmZcY6kLGiiiW3a5wjTgg"
-
+JWT_Secret = "secret_is_strong"
 # [[kv_namespaces]]
 # binding = "MY_KV_NAMESPACE"
 # id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
