@@ -1,7 +1,8 @@
 import { Hono } from "hono";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
-import { decode, sign, verify } from "hono/jwt";
+import { sign } from "hono/jwt";
+import { z } from "zod";
 
 export const userRouter = new Hono<{
   Bindings: {
@@ -10,14 +11,42 @@ export const userRouter = new Hono<{
   };
 }>();
 
+const signUpSchema = z.object({
+  email: z.string().email(),
+  name: z.string(),
+  password: z.string().min(8),
+});
+
 userRouter.post("/signup", async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
-
+  
   const body = await c.req.json();
+  const response = signUpSchema.safeParse(body);
 
-  const user = await prisma.user.create({
+  if (!response.success) {
+    return c.json(
+      {
+        msg: "Invalid Inputs",
+      },
+      400
+    );
+  }
+  const user = await prisma.user.findFirst({
+    where: {
+      email: body.email,
+    },
+  });
+  if (user) {
+    return c.json(
+      {
+        msg: "User Already Exsists",
+      },
+      400
+    );
+  }
+  const newUser = await prisma.user.create({
     data: {
       email: body.email,
       name: body.name,
@@ -27,17 +56,29 @@ userRouter.post("/signup", async (c) => {
       id: true,
     },
   });
-  const token = await sign(user, c.env.JWT_Secret);
+  const token = await sign(newUser, c.env.JWT_Secret);
   return c.json({ token });
+});
+
+const signinSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8),
 });
 
 userRouter.post("/signin", async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
-
   const body = await c.req.json();
-
+  const response = signinSchema.safeParse(body);
+  if (!response.success) {
+    return c.json(
+      {
+        msg: "Invalid Email/Password",
+      },
+      400
+    );
+  }
   const user = await prisma.user.findFirst({
     where: {
       email: body.email,
@@ -51,7 +92,7 @@ userRouter.post("/signin", async (c) => {
   if (!user) {
     return c.json(
       {
-        msg: "Invalid Credentials",
+        msg: "Wrong Email/password",
       },
       400
     );
