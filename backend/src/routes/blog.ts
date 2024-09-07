@@ -16,14 +16,22 @@ blogRouter.use("/*", async (c, next) => {
 		return c.json({ error: "unauthorized" });
 	}
 	const token = jwt.split(' ')[1];
+	console.log("Here")
+	try{
 	const payload = await verify(token, c.env.JWT_Secret);
-	if (!payload) {
-		c.status(401);
-		return c.json({ error: "unauthorized" });
-	}
-  //@ts-ignore
+
+		  //@ts-ignore
 	c.set('userId', payload.id);
 	await next()
+
+	}
+	catch{
+		return c.json({
+			msg: "Invalid Token!"
+		}, 401)
+	}
+
+
 })
 
 blogRouter.post("/", (c) => {
