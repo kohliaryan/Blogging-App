@@ -1,8 +1,8 @@
+import { postBlogSchema, putReqSchema } from "@aryankohli/blogapp-common";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { Hono } from "hono";
-import { decode, sign, verify } from "hono/jwt";
-import { z } from "zod";
+import { verify } from "hono/jwt";
 
 export const blogRouter = new Hono<{
   Bindings: {
@@ -36,10 +36,6 @@ blogRouter.use("/*", async (c, next) => {
   }
 });
 
-const postBlogSchema = z.object({
-  title: z.string().min(4),
-  content: z.string().min(10),
-});
 
 blogRouter.post("/", async (c) => {
   const prisma = new PrismaClient({
@@ -78,10 +74,7 @@ blogRouter.post("/", async (c) => {
   }
 });
 
-const putReqSchema = z.object({
-  id: z.string().min(4),
-  title: z.string().min(10),
-});
+
 blogRouter.put("/", async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
