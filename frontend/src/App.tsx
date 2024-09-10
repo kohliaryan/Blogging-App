@@ -1,20 +1,25 @@
+import React, { Suspense, lazy } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import  Signup  from "./pages/Signup";
-import  Signin  from "./pages/Signin";
-import { Blog } from "./pages/Blog";
-import Landing from "./pages/Landing";
+import LoadingScreen from "./component/Loading";
+
+// Lazy load the components
+const Signup = lazy(() => import("./pages/Signup"));
+const Signin = lazy(() => import("./pages/Signin"));
+const Landing = lazy(() => import("./pages/Landing"));
 
 function App() {
   return (
     <>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Landing></Landing>}></Route>
-          <Route path="/signup" element={<Signup></Signup>}></Route>
-          <Route path="/signin" element={<Signin></Signin>}></Route>
-          <Route path="/blog/:id" element={<Blog></Blog>}></Route>
-        </Routes>
+        <Suspense fallback={<LoadingScreen></LoadingScreen>}>
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/signin" element={<Signin />} />
+            {/* <Route path="/blog/:id" element={<Blog />} /> */}
+          </Routes>
+        </Suspense>
       </BrowserRouter>
     </>
   );
