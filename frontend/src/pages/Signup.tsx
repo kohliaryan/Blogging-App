@@ -55,7 +55,7 @@ export default function Signup() {
               // @ts-ignore
               setWarning(
                 //@ts-ignore
-                e.response.data.msg || "Invalid Password. Please try again."
+                e.response.data.msg || "An error occurred. Please try again."
               );
             } finally {
               setLoading(false);
