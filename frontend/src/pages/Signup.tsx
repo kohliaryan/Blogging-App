@@ -50,7 +50,7 @@ export default function Signup() {
                 postInputs
               );
               localStorage.setItem("token", `Bearer ${response.data.token}`);
-              navigate("/landing");
+              navigate("/home");
             } catch (e) {
               // @ts-ignore
               setWarning(
