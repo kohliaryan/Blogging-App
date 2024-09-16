@@ -53,7 +53,10 @@ export default function Signup() {
               navigate("/landing");
             } catch (e) {
               // @ts-ignore
-              setWarning(e.response.data.msg || "An error occurred. Please try again.");
+              setWarning(
+                //@ts-ignore
+                e.response.data.msg || "Invalid Password. Please try again."
+              );
             } finally {
               setLoading(false);
             }
@@ -61,8 +64,20 @@ export default function Signup() {
         >
           <InputField label="Name" type="text" setState={setFname} />
           <InputField label="Email" type="email" setState={setEmail} />
-          <InputField label="Password" type="password" setState={setPassword} />
-
+          <div>
+            <label className="block text-gray-700 font-medium mb-1">
+              Password
+            </label>
+            <input
+              minLength={8}
+              type="password"
+              className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-pink-300"
+              required
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
+          </div>
           <Button text="Sign Up" />
         </form>
 
