@@ -122,5 +122,14 @@ blogRouter.get("/:id", async (c) => {
       id: id,
     },
   });
-  return c.json({ post });
+  const author = await prisma.user.findFirst({
+    where: {
+      id: post?.authorId
+    },
+    select: {
+      name: true
+    }
+  })
+  
+  return c.json({ author, post });
 });
