@@ -3,6 +3,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import LoadingScreen from "./component/LoadingScreen";
 import Home from "./pages/Home";
+import { Blog } from "./pages/Blog";
 
 // Lazy load the components
 const Signup = lazy(() => import("./pages/Signup"));
@@ -19,7 +20,7 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/signin" element={<Signin />} />
             <Route path="/home" element={<Home />} />
-            {/* <Route path="/blog/:id" element={<Blog />} /> */}
+            <Route path="/blog/:id" element={<Blog />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </Suspense>
