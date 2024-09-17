@@ -39,13 +39,17 @@ const CreateBlog: React.FC = () => {
           },
         }
       )
-      .then(() => {
-        navigate("/home");
-      })
       .catch((error) => {
         console.error("Error creating post:", error);
         setError("Failed to create blog post. Please try again.");
-      });
+        alert("Invalid Content")
+      })
+
+      .finally(() =>
+        navigate("/home")
+      )
+      
+      
   };
 
   if (loading) {
@@ -66,6 +70,8 @@ const CreateBlog: React.FC = () => {
             Blog Title
           </label>
           <input
+          minLength={4}
+          required
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -78,6 +84,8 @@ const CreateBlog: React.FC = () => {
             Blog Content
           </label>
           <textarea
+          required
+          minLength={8}
             value={content}
             onChange={(e) => setContent(e.target.value)}
             className="w-full p-3 border rounded-lg h-40 focus:outline-none focus:ring-2 focus:ring-indigo-500"
