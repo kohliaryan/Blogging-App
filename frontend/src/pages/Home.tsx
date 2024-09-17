@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import LoadingScreen from "../component/LoadingScreen";
@@ -11,7 +11,7 @@ interface BlogPost {
   authorId: number;
 }
 
-const HomePage: React.FC = () => {
+const HomePage = () => {
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const navigate = useNavigate();
