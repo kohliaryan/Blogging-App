@@ -36,7 +36,6 @@ blogRouter.use("/*", async (c, next) => {
   }
 });
 
-
 blogRouter.post("/", async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
@@ -73,7 +72,6 @@ blogRouter.post("/", async (c) => {
     );
   }
 });
-
 
 blogRouter.put("/", async (c) => {
   const prisma = new PrismaClient({
@@ -124,12 +122,12 @@ blogRouter.get("/:id", async (c) => {
   });
   const author = await prisma.user.findFirst({
     where: {
-      id: post?.authorId
+      id: post?.authorId,
     },
     select: {
-      name: true
-    }
-  })
-  
+      name: true,
+    },
+  });
+
   return c.json({ author, post });
 });
