@@ -3,7 +3,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import LoadingScreen from "./component/LoadingScreen";
 import Home from "./pages/Home";
-import { Blog } from "./pages/Blog";
+import Blog from "./pages/Blog";
 
 // Lazy load the components
 const Signup = lazy(() => import("./pages/Signup"));
