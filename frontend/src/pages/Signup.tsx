@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../component/Button";
 import InputField from "../component/InputField";
 import { useNavigate } from "react-router-dom";
@@ -20,6 +20,14 @@ export default function Signup() {
   };
 
   const navigate = useNavigate();
+
+  // Check if token exists in localStorage
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/home"); // Redirect to /home if token exists
+    }
+  }, [navigate]);
 
   if (loading) {
     return <LoadingScreen />;

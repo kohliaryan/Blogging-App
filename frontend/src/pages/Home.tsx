@@ -73,7 +73,7 @@ const HomePage: React.FC = () => {
         </button>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4 md:px-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4 md:px-8 mb-8"> {/* Added mb-8 for spacing */}
         {posts.map((post) => (
           <div
             key={post.id}

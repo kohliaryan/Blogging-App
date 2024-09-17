@@ -1,7 +1,7 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../component/Button";
 import InputField from "../component/InputField";
-import { useState } from "react";
 import LoadingScreen from "../component/LoadingScreen";
 import axios from "axios";
 import { SigninInput } from "@aryankohli/blogapp-common";
@@ -17,6 +17,14 @@ export default function Signin() {
     email: email,
     password: password,
   };
+
+  // Check if token exists in localStorage
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/home"); // Redirect to /home if token exists
+    }
+  }, [navigate]);
 
   if (loading) {
     return <LoadingScreen />;
@@ -75,7 +83,7 @@ export default function Signin() {
         </form>
 
         <p className="text-center text-gray-600 mt-4">
-          Already have an account?{" "}
+          Don't have an account?{" "}
           <button
             className="text-pink-600 hover:text-pink-700 underline"
             onClick={() => navigate("/signup")}
