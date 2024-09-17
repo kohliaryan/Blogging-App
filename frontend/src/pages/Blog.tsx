@@ -69,7 +69,7 @@ export default function Blog() {
           onClick={() => navigate(-1)} // Navigate back to the blog list page
           className="mt-6 bg-purple-600 hover:bg-indigo-600 text-white py-2 px-4 rounded-lg transition-all"
         >
-          Go Back
+          See All Blogs
         </button>
       </div>
     </div>

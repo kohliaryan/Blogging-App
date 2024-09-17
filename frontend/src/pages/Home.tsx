@@ -49,7 +49,12 @@ const HomePage: React.FC = () => {
   };
 
   const goToWriteBlog = () => {
-    navigate("/post"); 
+    navigate("/post");
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // Clear the token
+    navigate("/landing"); // Redirect to the landing page
   };
 
   if (loading) {
@@ -58,7 +63,16 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-purple-500 to-indigo-500 flex flex-col items-center">
-      <h1 className="text-white text-4xl font-bold mt-10 mb-6">Blogs</h1>
+      <div className="flex justify-between w-full px-6 py-4">
+        <h1 className="text-white text-4xl font-bold">Blogs</h1>
+        <button
+          onClick={handleLogout}
+          className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg transition-all"
+        >
+          Log Out
+        </button>
+      </div>
+      
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4 md:px-8">
         {posts.map((post) => (
           <div

@@ -4,6 +4,7 @@ import "./App.css";
 import LoadingScreen from "./component/LoadingScreen";
 import Home from "./pages/Home";
 import Blog from "./pages/Blog";
+import CreateBlog from "./pages/CreateBlog";
 
 // Lazy load the components
 const Signup = lazy(() => import("./pages/Signup"));
@@ -21,7 +22,7 @@ function App() {
             <Route path="/signin" element={<Signin />} />
             <Route path="/home" element={<Home />} />
             <Route path="/blog/:id" element={<Blog />} />
-            <Route path="/post" element={<Blog />} />
+            <Route path="/post" element={<CreateBlog />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </Suspense>
