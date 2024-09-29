@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import LoadingScreen from "../component/LoadingScreen";
+import { BACKEND_URL } from "../config";
 
 const CreateBlog: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -28,7 +29,7 @@ const CreateBlog: React.FC = () => {
 
     axios
       .post(
-        "https://backend.kohliaryan2004.workers.dev/api/v1/blog",
+        `${BACKEND_URL}/api/v1/blog`,
         {
           title,
           content,

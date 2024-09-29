@@ -2,6 +2,7 @@ import  { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import LoadingScreen from "../component/LoadingScreen";
+import { BACKEND_URL } from "../config";
 
 interface BlogPost {
   id: number;
@@ -30,7 +31,7 @@ export default function Blog() {
     }
 
     axios
-      .get(`https://backend.kohliaryan2004.workers.dev/api/v1/blog/${id}`, {
+      .get(`${BACKEND_URL}/api/v1/blog/${id}`, {
         headers: {
           Authorization: `${token}`,
         },
